@@ -1,38 +1,498 @@
-.App {
+
+/* common ページ全体の設定 */
+p {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity .3s;
+}
+
+a:hover {
+  opacity:  .5;
+}
+
+h4 {
+  font-family: serif;
+  font-size: 22px;
   text-align: center;
+  margin: 5px 0;
+  padding: 0;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* header */
+
+header {
+  color: black;
+  background-color: #CCCCCC;
+  box-shadow: 2px 2px 4px gray;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  font-family: serif;
+  padding: 0 10px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+      /*flexboxアイテムの最初を開始点に、最後を終了点に、残りは均等に配置*/
   align-items: center;
+      /*flexboxコンテナを中央に配置*/
+}
+
+header input,
+header button {
+  all: unset;
+}
+
+
+header input {
+  border-bottom: 1px solid black;
+  padding: 4px;
+  width: 300px;
+  text-align: left;
+}
+
+header button {
+  cursor: pointer;
+}
+
+/* ヘッダー右上　ドロップダウンリスト */
+
+.dropdown {
+	list-style-type:none;
+}
+.dropdown > li {
+	display:inline-block;
+	position:relative;
+}
+.dropdown > li > ul {
+  border-radius: 10px;
+	display:none;
+  cursor: pointer;
+
+}
+
+.dropdown > li > ul > li {
+  color: black;
+  font-size: 20px;
+  height: 60px;
+  width: 250px;
+  /* border:1px solid black; */
+  background: white;
+  box-shadow: 2px 2px 4px gray;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.dropdown > li:hover ul {
+	display:block;
+	position:absolute;
+	padding:0;
+	margin:0;
+	top:1.25em;
+  right: 0;
+	list-style-type:none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dropdown > li > ul > li:hover {
+  background: #CCCCCC;
+  border:1px solid black;
+
 }
+
+  /* 新規投稿画面へのポップアップ */
+  #pop-up {
+    display: none; /* label でコントロールするので input は非表示に */
+  }
+  .new-post-overlay {
+    display: none; /* input にチェックが入るまでは非表示に */
+  }
+  #pop-up:checked + .new-post-overlay {
+    display: block;
+    z-index: 9999;
+    background-color: #00000070;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
+  .new-post-window {
+    width: 90vw;
+    max-width: 700px;
+    height: 700px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    display: flex;
+    flex-flow: column;
+    /* align-items: center; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .new-post-view {
+    font-family: serif;
+    font-size: 24px;
+    margin: 0;
+  }
+  .close {
+    cursor:pointer;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 20px;
+  }
+
+  /* .new-post-box {
+    border: solid 3px #CCCCCC;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px gray;   
+  } */
+
+
+
+
+/* (本日のランキング　過去の投稿) 新着順投稿一覧を横並び */
+.flex {
+  display: flex;
+}
+/* 本日のランキング　過去の投稿　を縦並び */
+.ranking-and-searchbox {
+  display: flex;
+  flex-flow: column;
+}
+
+/* 本日のランキング枠 */
+
+.rankbox {
+  width: 400px;
+  font-family: serif;
+  font-size: 22px;
+  float: left;
+  height: 450px;
+  margin: 10px;
+  border: solid 3px #CCCCCC;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px gray;
+  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}
+
+
+/* 過去の投稿検索 */
+
+.searchbox {
+  width: 400px;
+  height: 350px;
+  margin: 10px;
+  border: solid 3px #CCCCCC;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px gray;
+  text-align: center;
+  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}
+
+    /* 検索用　セレクトボックス */
+    .cp_ipselect {
+      position: relative;
+      width: 90%;
+      margin: 2em auto;
+      text-align: center;
+    }
+    .cp_sl06 {
+      position: relative;
+      font-family: inherit;
+      background-color: transparent;
+      width: 100%;
+      padding: 10px 10px 10px 0;
+      font-size: 18px;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0, 0.3);
+    }
+    .cp_sl06:focus {
+      outline: none;
+      border-bottom: 1px solid rgba(0,0,0, 0);
+    }
+    .cp_ipselect .cp_sl06 {
+      appearance: none;
+      -webkit-appearance:none
+    }
+    .cp_ipselect select::-ms-expand {
+      display: none;
+    }
+    .cp_ipselect:after {
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      padding: 0;
+      content: '';
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+    }
+    .cp_sl06_selectlabel {
+      color: rgba(0,0,0, 0.5);
+      font-size: 18px;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: 0;
+      top: 10px;
+      transition: 0.2s ease all;
+    }
+    .cp_sl06:focus ~ .cp_sl06_selectlabel, .cp_sl06:valid ~ .cp_sl06_selectlabel {
+      color: #da3c41;
+      top: -20px;
+      transition: 0.2s ease all;
+      font-size: 14px;
+    }
+    .cp_sl06_selectbar {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+    .cp_sl06_selectbar:before, .cp_sl06_selectbar:after {
+      content: '';
+      height: 2px;
+      width: 0;
+      bottom: 1px;
+      position: absolute;
+      background: #da3c41;
+      transition: 0.2s ease all;
+    }
+    .cp_sl06_selectbar:before {
+      left: 50%;
+    }
+    .cp_sl06_selectbar:after {
+      right: 50%;
+    }
+    .cp_sl06:focus ~ .cp_sl06_selectbar:before, .cp_sl06:focus ~ .cp_sl06_selectbar:after {
+      width: 50%;
+    }
+    .cp_sl06_highlight {
+      position: absolute;
+      top: 25%;
+      left: 0;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+
+/* 新着順　投稿一覧 */
+.new-arrivals-posts-list {
+  width: 1500px;
+  height: 925px;
+  margin: 10px;
+  border: solid 3px #CCCCCC;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px gray;
+  text-align: center;
+  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}
+
+/* 各投稿 */
+
+.new-post {
+  background-color: #EEEEEE;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px gray;
+  padding: 5px;
+  margin: 8px 16px;
+}
+.new-post p {
+  text-align: left;
+  padding: 3px;
+}
+
+.new-post ul li {
+  display: inline;
+  margin: 0 30px;
+}
+
+/* 新規投稿ボタン（右下） */
+
+.new-post-button {
+  color: #BBBBBB;
+  font-size: 50px;
+  /* display: flex;
+  justify-content: flex-end;
+  margin-right: 15px; */
+  position:fixed;
+  right: 30px;
+  bottom: 15px;
+  cursor: pointer;
+}
+
+
+    /* 新規投稿フォーム */
+    .form {
+      font-family: serif;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      /* max-width: 720px; */
+    }
+    @media screen and (max-width: 480px) {
+      .form {
+        margin-top: 40px;
+      }
+    }
+    .form-item {
+      border-top: 1px solid #ddd;
+      padding-top: 24px;
+      padding-bottom: 24px;
+      height: auto;
+      display: flex;
+      flex-flow: column;
+      /* align-items: center; */
+    }
+    @media screen and (max-width: 480px) {
+      .form-item {
+        /* width: 450px; */
+        padding-left: 14px;
+        padding-right: 14px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        flex-wrap: wrap;
+      }
+    }
+    .form-item-label {
+      width: 100%;
+      max-width: 150px;
+      letter-spacing: 0.05em;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    @media screen and (max-width: 480px) {
+      .form-item-label {
+        max-width: inherit;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+      }
+    }
+    .form-item-label.ismsg {
+      margin-top: 8px;
+      margin-bottom: auto;
+    }
+    @media screen and (max-width: 480px) {
+      .form-item-label.ismsg {
+        margin-top: 0;
+      }
+    }
+    .form-item-label-required {
+      border-radius: 6px;
+      margin-right: 8px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      width: 48px;
+      display: inline-block;
+      text-align: center;
+      background: #5bc8ac;
+      color: #fff;
+      font-size: 14px;
+    }
+    @media screen and (max-width: 480px) {
+      .form-item-label-required {
+        border-radius: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        width: 32px;
+        font-size: 10px;
+      }
+    }
+    .form-item-input {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-left: 0px;
+      padding-left: 1em;
+      padding-right: 1em;
+      height: 48px;
+      flex: 1;
+      width: 100%;
+      max-width: 410px;
+    }
+    @media screen and (max-width: 480px) {
+      .form-item-input {
+        margin-left: 0;
+        margin-top: 18px;
+        height: 40px;
+        flex: inherit;
+        font-size: 15px;
+      }
+    }
+    .form-item-textarea {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-left: 0px;
+      margin-right: 0px;
+      padding-left: 1em;
+      padding-right: 1em;
+      height: 250px;
+      /* flex: 1; */
+      width: 600px;
+      /* max-width: 600px; */
+      min-width: 100px;
+      background: #eaedf2;
+      font-size: 18px;
+      overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+
+    }
+    @media screen and (max-width: 480px) {
+      .form-item-textarea {
+        margin-top: 18px;
+        margin-left: 5px;
+        height: 400px;
+        max-width: 460px;
+        min-width: 100px;
+        flex: inherit;
+        font-size: 15px;
+      }
+    }
+
+
+    .form-btn {
+      font-family: serif;
+      text-align: center;
+      border-radius: 6px;
+      margin-top: 22px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      width: 280px;
+      display: block;
+      letter-spacing: 0.05em;
+      background: #CCCCCC;
+      color: black;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    @media screen and (max-width: 480px) {
+      .form-btn {
+        margin-top: 24px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        width: 160px;
+        font-size: 16px;
+      }
+    }
